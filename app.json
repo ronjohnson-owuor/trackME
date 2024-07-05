@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "dev_health",
-    "slug": "dev_health",
+    "name": "TrackME",
+    "slug": "TrackME",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "potrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -18,10 +18,22 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.zeron_labs.TrackME"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "8861d34f-cc96-4f71-ba44-dae44fe7c330"
+      }
     }
   }
 }
