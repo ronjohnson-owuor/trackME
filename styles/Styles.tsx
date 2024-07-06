@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     LivePosUpdate: {
       height:40,
       width:'100%',
+      overflow:'scroll',
       fontWeight:'bold',
       justifyContent:'center',
       gap: 20,
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     header: {
-        backgroundColor: '#FF6347',
+        backgroundColor: '#3eb1be',
         width: '100%',
         height: 100,
         alignItems: 'center',
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
         marginBottom:40
     },
     button: {
-        backgroundColor: '#FF6347',
+        backgroundColor: '#3eb1be',
         paddingVertical: 12,
         paddingHorizontal: 24,
         borderRadius: 6,
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#ffe'
       },
       startbutton: {
-        backgroundColor: '#FF6347',
+        backgroundColor: '#3eb1be',
         height:40,
         borderRadius: 6,
         elevation: 3,
