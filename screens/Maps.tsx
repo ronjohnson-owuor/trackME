@@ -83,7 +83,7 @@ function Maps() {
                 {/* starting point marker */}
                 <Marker
                  coordinate={region}
-                 pinColor="blue"
+                 pinColor="white"
                  title="Start"
                  description="Starting point"
                  ></Marker>
@@ -91,10 +91,15 @@ function Maps() {
                 {pathCoordinates.length > 0 &&
                   <Marker 
                   coordinate={pathCoordinates[pathCoordinates.length-1]}
-                  pinColor="green"
+                  pinColor="red"
                   title="end"
                   description="current point"
                   ></Marker> }
+                  <Polyline
+                  strokeColor='#3eb1be'
+                  strokeWidth={3}
+                  coordinates={pathCoordinates}
+                  />
             </MapView>
         </SafeAreaView>
     );
