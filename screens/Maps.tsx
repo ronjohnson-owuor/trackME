@@ -79,7 +79,11 @@ function Maps() {
             <Text style={styles.LivePosUpdateText}>live latitude: {pathCoordinates.length === 0 ? 'fetching...' :pathCoordinates[pathCoordinates.length-1].latitude}</Text>
             <Text style={styles.LivePosUpdateText}>live longitude: {pathCoordinates.length === 0 ? 'fetching...' :pathCoordinates[pathCoordinates.length-1].longitude}</Text>
             </View>
-            <MapView region={pathCoordinates.length > 0 ?pathCoordinates[pathCoordinates.length-1]:region} style={styles.maps}>
+            <MapView
+            showsCompass={true}
+            showsUserLocation={true}
+            showsScale={true}
+             region={pathCoordinates.length > 0 ?pathCoordinates[pathCoordinates.length-1]:region} style={styles.maps}>
                 {/* starting point marker */}
                 <Marker
                  coordinate={region}
@@ -91,7 +95,7 @@ function Maps() {
                 {pathCoordinates.length > 0 &&
                   <Marker 
                   coordinate={pathCoordinates[pathCoordinates.length-1]}
-                  pinColor="red"
+                  pinColor="white"
                   title="end"
                   description="current point"
                   ></Marker> }
