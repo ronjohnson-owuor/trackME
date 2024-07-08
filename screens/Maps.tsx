@@ -27,7 +27,7 @@ function Maps() {
         longitudeDelta:number;
     }>>([]);
     useEffect(() => {
-        const intervalId = setInterval(updatePathCoordinates,2000); // Update every 2seconds 
+        const intervalId = setInterval(updatePathCoordinates,5000); // Update every 2seconds 
         return () => clearInterval(intervalId);
     }, []);
 
@@ -87,7 +87,7 @@ function Maps() {
                 {/* starting point marker */}
                 <Marker
                  coordinate={region}
-                 pinColor="white"
+                 pinColor="#000"
                  title="Start"
                  description="Starting point"
                  ></Marker>
@@ -95,8 +95,8 @@ function Maps() {
                 {pathCoordinates.length > 0 &&
                   <Marker 
                   coordinate={pathCoordinates[pathCoordinates.length-1]}
-                  pinColor="white"
-                  title="end"
+                  pinColor="green"
+                  title="currentPosition"
                   description="current point"
                   ></Marker> }
                   <Polyline
