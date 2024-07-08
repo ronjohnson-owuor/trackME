@@ -16,6 +16,12 @@ function Routes() {
           getAllRoutes();
         },[]);
 
+            // delete path
+            const deleteMap = async (name:string) => {
+                alert(`you are removing ${name}`);
+                await AsyncStorage.removeItem(name);
+                getAllRoutes();
+            }
 
     return (
 <ScrollView>
@@ -23,7 +29,7 @@ function Routes() {
         allRoutes.map((route,index)=>(
             <View key={index}>
                 <Text >{route}</Text>
-                <TouchableOpacity  style={styles.startbutton}>
+                <TouchableOpacity  onPress= {()=>deleteMap(route)}  style={styles.startbutton}>
                    <Text style={styles.buttonText}><Fontawesome name='trash'/>&nbsp;&nbsp;delete</Text> 
             </TouchableOpacity>
             <TouchableOpacity  style={styles.startbutton}>
