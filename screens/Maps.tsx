@@ -4,19 +4,54 @@ import { Text, View } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 import styles from '../styles/Styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 function Maps() {
     // initialize the location variable
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const[name,setName] =useState("walk name");
+    const navigation = useNavigation();
     // this is the starting point where the user will start his walk
     const [region, setRegion] = useState({
         
-            latitudeDelta: 0.001,
-            longitudeDelta: 0.001,
+            latitudeDelta: 0.004,
+            longitudeDelta: 0.004,
             latitude:0.0000,
             longitude: 0.0000
         
     });
+
+
+    // save location
+    const savePathCoordinates = async () => {
+        try {
+          // Get the walk name from AsyncStorage
+          const walkName = await AsyncStorage.getItem('walk_name');
+          
+          // Check if walkName exists
+          if (!walkName) {
+            // Navigate to '/Start' screen if walk name is not set
+            // Adjust your navigation logic as needed
+            // @ts-ignore
+            navigation.navigate('Start', { screen: 'walk name' });
+            return;
+          }
+          setName(walkName);
+          // Example of saving path coordinates
+          let stringifiedArrayPath = JSON.stringify(pathCoordinates);
+          
+          // Save the path coordinates to AsyncStorage under the walkName
+          await AsyncStorage.setItem(walkName, stringifiedArrayPath);
+          console.log("👏 cordinates save");
+          
+        } catch (error) {
+          console.error('Error saving coordinates:', error);
+          // Handle error saving coordinates
+          // For example, you can alert the user or log the error
+          alert('Error saving coordinates. Please try again.');
+        }
+      };
 
 
 
@@ -25,9 +60,10 @@ function Maps() {
          longitude: number;
          latitudeDelta:number;
         longitudeDelta:number;
+        accuracy: number;
     }>>([]);
     useEffect(() => {
-        const intervalId = setInterval(updatePathCoordinates,5000); // Update every 2seconds 
+        const intervalId = setInterval(updatePathCoordinates,500); // Update every 2seconds 
         return () => clearInterval(intervalId);
     }, []);
 
@@ -48,8 +84,9 @@ function Maps() {
                     ...prevPath,
                     { latitude: location.coords.latitude,
                       longitude: location.coords.longitude,
-                      latitudeDelta: 0.001,
-                      longitudeDelta: 0.001,
+                      latitudeDelta: 0.004,
+                      longitudeDelta: 0.004,
+                      accuracy: location.coords.accuracy!
                      }
                 ]);
             }
@@ -66,19 +103,27 @@ function Maps() {
             setRegion({
                 latitude:pathCoordinates[0].latitude,
                 longitude:pathCoordinates[0].longitude,
-                latitudeDelta: 0.001,
-                longitudeDelta: 0.001,
+                latitudeDelta: 0.004,
+                longitudeDelta: 0.004,
             })            
         }
 
-    },[location?.coords])
+    },[location?.coords]);
+
+
+    useEffect(()=>{
+            if(pathCoordinates.length !== 0){
+                savePathCoordinates();
+            }
+    },[pathCoordinates]);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container}> 
             <View style={styles.LivePosUpdate}>
-            <Text style={styles.LivePosUpdateText}>live latitude: {pathCoordinates.length === 0 ? 'fetching...' :pathCoordinates[pathCoordinates.length-1].latitude}</Text>
-            <Text style={styles.LivePosUpdateText}>live longitude: {pathCoordinates.length === 0 ? 'fetching...' :pathCoordinates[pathCoordinates.length-1].longitude}</Text>
-            </View>
+           
+            <Text style={styles.LivePosUpdateText}>🚶‍♀️walk Name: {name}</Text>
+            </View>         
+
             <MapView
             showsCompass={true}
             showsUserLocation={true}

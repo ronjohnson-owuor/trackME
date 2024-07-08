@@ -9,6 +9,7 @@ import Fontawesome from '@expo/vector-icons/FontAwesome';
 import Home from './screens/Home';
 import Start from './screens/Start';
 import Maps from './screens/Maps';
+import Routes from './screens/Routes';
 
 // Import screens
 
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="map" component={Maps} />
+        <Stack.Screen name="route" component={Routes} />
       </Stack.Navigator>
     </NavigationContainer>
   );
